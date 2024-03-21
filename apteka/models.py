@@ -21,7 +21,7 @@ class Product (models.Model):
     suppliers=models.ForeignKey(Suppliers,verbose_name="Поставщик", on_delete=models.CASCADE,default=0)
     categorii=models.ForeignKey(Categorii,verbose_name="Категория", on_delete=models.CASCADE)
 
-    count=models.IntegerField( verbose_name="Количество")
+
 
     price=models.DecimalField(max_digits=6, decimal_places=2 ,verbose_name="Цена")
 
@@ -29,8 +29,13 @@ class Product (models.Model):
         return self.name_product
 
 class Sklad (models.Model):
+
     product=models.ForeignKey(Product,verbose_name="Товар", on_delete=models.CASCADE)
+    count=models.IntegerField( verbose_name="Количество",default=0)
     cell=models.CharField(max_length=10,verbose_name="Ячейка хранения")
+
+    def __str__(self):
+        return self.product.name_product
 
 
 

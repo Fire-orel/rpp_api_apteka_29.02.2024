@@ -11,13 +11,13 @@ class CategoriiSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model=Product
-        fields=("id","name_product","suppliers","categorii","count","price")
+        fields=("id","name_product","suppliers","categorii","price")
 
 
 class SkladSerializer(serializers.ModelSerializer):
     class Meta:
         model=Sklad
-        fields=("id","product","cell")
+        fields=("id","product","count","cell")
 
 class SuppliersSerializer(serializers.ModelSerializer):
     class Meta:
