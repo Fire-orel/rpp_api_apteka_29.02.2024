@@ -31,7 +31,7 @@ class Product (models.Model):
 class Sklad (models.Model):
 
     product=models.ForeignKey(Product,verbose_name="Товар", on_delete=models.CASCADE)
-    count=models.IntegerField( verbose_name="Количество",default=0)
+    count=models.IntegerField(verbose_name="Количество",default=0)
     cell=models.CharField(max_length=10,verbose_name="Ячейка хранения")
 
     def __str__(self):

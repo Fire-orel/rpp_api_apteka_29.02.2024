@@ -7,7 +7,7 @@ router=routers.DefaultRouter()
 router.register('Product', ProductViewSet),
 router.register("Categorii",CategoriiViewSet)
 router.register("Suppliers",SuppliersViewSet)
-router.register("Skad",SkladViewSet)
+router.register("Sklad",SkladViewSet)
 
 urlpatterns = [
     path("api/",include(router.urls)),
