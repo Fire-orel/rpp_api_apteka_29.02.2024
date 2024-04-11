@@ -4,6 +4,7 @@ from .serializers import ProductSerializer,CategoriiSerializer,SkladSerializer,S
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
+from django.views.generic import ListView
 
 
 class ProductViewSet(ModelViewSet):
@@ -55,4 +56,8 @@ class SuppliersViewSet(ModelViewSet):
         qs=self.get_queryset().filter(name_kompani="ООО лекаство")
         serializer=self.get_serializer_class()(qs,many=True)
         return Response(data=serializer.data)
+
+class ProductViews(ListView):
+    template_name = 'apteka/product.html'
+    queryset = Product.objects.all()
 # Create your views here.
