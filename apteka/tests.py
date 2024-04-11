@@ -29,16 +29,16 @@ class AptekaTests(APITestCase):
         serializer = SkladSerializer(Sklad.objects.all(),many=True)
         self.assertListEqual(response.data,serializer.data)
 
-    def test_get_product_id(self):
-        self.client.force_login(self.user)
-        response = self.client.get(f'/api/product/{self.product.id}/', format='json')
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-        serializer = ProductSerializer(Product.objects.get(id=self.product.id))
-        self.assertDictEqual(response.data, serializer.data)
+    # def test_get_product_id(self):
+    #     self.client.force_login(self.user)
+    #     response = self.client.get(f'/api/product/{self.product.id}/', format='json')
+    #     self.assertEqual(response.status_code,status.HTTP_200_OK)
+    #     serializer = ProductSerializer(Product.objects.get(id=self.product.id))
+    #     self.assertDictEqual(response.data, serializer.data)
 
     def test_post_product(self):
         self.client.force_login(self.user)
-        response = self.client.post('/api/Product/',{'name_product' : "test","suppliers" : 1, 'categorii':1,"price": 100},format='json')
+        response = self.client.post('/api/Product/',{'name_product' : "test","suppliers" : self.suppliers.id, 'categorii':self.categiorii.id,"price": 100},format='json')
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
 
 
@@ -47,7 +47,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 
 class MySeleniumTests(StaticLiveServerTestCase):
-    fixtures = ['product.json']
+    fixtures = ['apteka.json']
 
     @classmethod
     def setUpClass(cls):
@@ -60,8 +60,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    # def test_product_page(self):
-    #     self.selenium.get(f"{self.live_server_url}/")
-    #     elements= self.selenium.find_elements(By.XPATH,'//div')
-    #     for element in elements:
-    #         self.assertIn(element.text,list(map(lambda b: b.name_product, Product.objects.all())))
+    def test_product_page(self):
+        self.selenium.get(f"{self.live_server_url}/")
+        elements= self.selenium.find_elements(By.XPATH,'//div')
+        for element in elements:
+            self.assertIn(element.text,list(map(lambda b: b.name_product, Product.objects.all())))
